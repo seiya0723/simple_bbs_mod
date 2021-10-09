@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <h1>HELLO WORLD!!</h1>
+
+    <form action="" method="GET">
+        <input type="text" name="search">
+        <input type="submit" value="検索">
+    </form>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input class="form-control my-1" type="text" name="name" placeholder="名前">
+        <textarea class="form-control my-1" name="comment" placeholder="コメント"></textarea>
+        <input type="submit" value="POST文送信">
+    </form>
+
+    {% for topic in topics %}
+    <div>{{ topic }}</div>
+    {% endfor %}
+
+    {% for topic in topics %}
+    <div class="border my-2 p-1">
+        <div>id:{{ topic.id }}</div>
+        <div>投稿日時:{{ topic.dt|date:"Y年m月d日 H時i分s秒" }}</div>
+        <div>名前:{{ topic.name }}</div>
+        <div>コメント:{{ topic.comment }}</div>
+        
+        <a class="btn btn-success" href="{% url 'bbs:edit' topic.id %}">編集</a>
+        <form action="{% url 'bbs:delete' topic.id  %}" method="POST" style="display:inline-block;">
+            {% csrf_token %}
+            <button class="btn btn-danger">削除</button>
+        </form>
+
+    </div>
+    {% endfor %}
+
+    <div>{{ topics|length }}件の投稿があります。</div>
+
+</body>
+
+</html>

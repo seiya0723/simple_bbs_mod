@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <h1>編集フォーム</h1>
+
+    <form action="{% url 'bbs:edit' topic.id  %}" method="POST">
+        {% csrf_token %}
+        <input class="form-control my-1" type="text" name="name" placeholder="名前" value="{{ topic.name }}">
+        <textarea class="form-control my-1" name="comment" placeholder="コメント">{{ topic.comment }}</textarea>
+        <input type="submit" value="編集">
+    </form>
+
+</body>
+</html>
+
